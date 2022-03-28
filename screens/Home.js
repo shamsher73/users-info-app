@@ -19,7 +19,8 @@ const Home = () => {
     })
 
     const getItemsWithFilters = () => {
-        fetchdata((results) => setUserList([...results]))
+        setIsLoading(true)
+        callAPI(filters).then((results) => {setUserList([...results]);setIsLoading(false)})
     }
 
     useEffect(() => {
@@ -28,14 +29,9 @@ const Home = () => {
 
     const loadMoreData = () => {
         if(userList.length < filters.noOfResults)
-            fetchdata((results) => setUserList([...userList, ...results]))
-    }
-
-    const fetchdata = (effectFunction) => {
-        setIsLoading(true)
-        callAPI(filters)
-        .then(data => {effectFunction(data.results); setIsLoading(false);})
-        .catch(error => console.log(error))
+        {
+            callAPI(filters).then((results) => setUserList([...userList, ...results]))
+        }
     }
 
     return (
