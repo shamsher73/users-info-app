@@ -2,6 +2,7 @@ import { Modal, Pressable, Text, View } from 'native-base'
 import React from 'react'
 import Countries from '../constants/Countries'
 import { AntDesign } from '@expo/vector-icons'; 
+import Config from '../constants/Config';
 
 
 const FilterModal = ({ modalVisible, setModalVisible, filters, setFilters ,getItemsWithFilters}) => {
@@ -81,7 +82,7 @@ const FilterModal = ({ modalVisible, setModalVisible, filters, setFilters ,getIt
                 <View bottom="0" mb="6" flexDirection="row" borderTopWidth="1" borderColor="#979797" pt="2" >
                     <Pressable ml="2" onPress={() => {
                                     setFilters({     
-                                    noOfResults: 50,
+                                    noOfResults: Config.noOfResults,
                                     gender:"",
                                     countries:[]
                                     });

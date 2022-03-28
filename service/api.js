@@ -1,6 +1,6 @@
-import axios from "axios";
+import Config from "../constants/Config";
 
-const baseUrl = "https://randomuser.me/api/?results=";
+const baseUrl = Config.apiUrl+"/?results=";
 
 export const callAPI = async (filters) => {
     const maxResult = 10;

@@ -4,6 +4,8 @@ import { AntDesign,Entypo  } from '@expo/vector-icons';
 import FilterModal from "../components/FilterModal";
 import { callAPI } from "../service/api";
 import UserList from "../components/UserList";
+import Config from "../constants/Config";
+
 
 const Home = () => {
     const [userList, setUserList] = useState([]);
@@ -11,7 +13,7 @@ const Home = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [filters, setFilters] = useState({
-        noOfResults: 50,
+        noOfResults: Config.noOfResults,
         gender:"",
         countries:[]
     })
