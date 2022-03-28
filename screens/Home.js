@@ -1,5 +1,5 @@
-import { Pressable, Text, View, Spinner } from "native-base";
-import {useState, useEffect, useRef} from "react";
+import { Pressable, Text, View, Spinner, Modal } from "native-base";
+import {useState, useEffect, useRef, useCallback} from "react";
 import { AntDesign,Entypo  } from '@expo/vector-icons'; 
 import FilterModal from "../components/FilterModal";
 import { callAPI } from "../service/api";
@@ -18,22 +18,35 @@ const Home = () => {
         countries:[]
     })
 
-    const getItemsWithFilters = () => {
-        setIsLoading(true)
-        callAPI(filters).then((results) => {setUserList([...results]);setIsLoading(false)})
+    useEffect(() => loadData(resetUsers), [])
+    
+    const mergeUsers = (results) => {setUserList([...userList, ...results])}
+    const resetUsers = (results) => {setUserList([...results])}
+
+    const loadMoreData = () => loadData(mergeUsers)
+    const loadData = async (effectFunction) => {
+        setIsLoading(true);
+        const result = await callAPI(filters);
+        effectFunction(result);
+        setIsLoading(false);
     }
 
-    useEffect(() => {
-        getItemsWithFilters()
-    }, [])
-
-    const loadMoreData = () => {
-        if(userList.length < filters.noOfResults)
-        {
-            callAPI(filters).then((results) => setUserList([...userList, ...results]))
+    const submitFilter = () => {
+        loadData(resetUsers)
+        setModalVisible(false);
+    }
+    
+    const resetFilter = useCallback(() => {
+        () => {
+            setFilters({     
+                noOfResults: Config.noOfResults,
+                gender:"",
+                countries:[]
+            });
+            setModalVisible(false);
         }
-    }
-
+    }, [filters])
+   
     return (
         <View height="full" >
             <UserList userList={userList} setUserList={setUserList} flatListRef={flatListRef} fetchdata={loadMoreData} />
@@ -47,7 +60,9 @@ const Home = () => {
                     <Text fontSize="10">Filters</Text>
                 </Pressable>
             </View>
-            <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} filters={filters} setFilters={setFilters} getItemsWithFilters={getItemsWithFilters}/>
+            <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} avoidKeyboard size="full" animationPreset="slide" >
+                <FilterModal filters={filters} setFilters={setFilters} submitFilter={submitFilter} resetFilter={resetFilter}/>
+            </Modal>
         </View>
     )
 }

@@ -17,7 +17,7 @@ const UserList = ({userList,setUserList,flatListRef,fetchdata}) => {
                 data={userList}
                 renderItem={renderItem}
                 keyExtractor={user => user.phone}
-                onEndReached={() => fetchdata()}
+                onEndReached={() => fetchdata(false)}
                 onEndReachedThreshold={1.5}
             />
         </View>

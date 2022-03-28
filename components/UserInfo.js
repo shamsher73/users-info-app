@@ -8,7 +8,7 @@ const UserInfo = ({user,removeUser}) => {
     const [showModal, setShowModal] = useState(false);
     return (
         <View>
-            <Swipeable renderRightActions={() => RightSwipeAction(setShowModal,user)}>
+            <Swipeable renderRightActions={() => <RightSwipeAction setShowModal={setShowModal} user={user} />} >
                 <View key={user.login.uuid} w="full" flexDirection="row" p="2" borderBottomWidth="0.5" borderBottomColor="#E0E0E0" mt="1"  mb="1">
                     <View alignItems="center" flex="1">
                         <Image borderRadius={100} source={{

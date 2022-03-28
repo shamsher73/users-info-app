@@ -4,7 +4,7 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import {Share} from 'react-native';
 import { Pressable, View } from "native-base";
 
-const RightSwipeAction = (setShowModal,user) => {
+const RightSwipeAction = ({setShowModal,user}) => {
     const onShare = async () => {
         try {
           const result = await Share.share({

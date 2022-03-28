@@ -1,5 +1,5 @@
 
 export default {
-    "noOfResults" : 50,
+    "noOfResults" : 7,
     "apiUrl" : "https://randomuser.me/api"
 }

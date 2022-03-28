@@ -2,10 +2,8 @@ import { Modal, Pressable, Text, View } from 'native-base'
 import React from 'react'
 import Countries from '../constants/Countries'
 import { AntDesign } from '@expo/vector-icons'; 
-import Config from '../constants/Config';
 
-
-const FilterModal = ({ modalVisible, setModalVisible, filters, setFilters ,getItemsWithFilters}) => {
+const FilterModal = ({filters, setFilters ,submitFilter,resetFilter}) => {
 
     const toggleCountry = (country) => {
         if((filters.countries.includes(country.code)))
@@ -17,7 +15,6 @@ const FilterModal = ({ modalVisible, setModalVisible, filters, setFilters ,getIt
     }
 
     return (
-        <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} avoidKeyboard size="full" animationPreset="slide" >
             <Modal.Content height="1/2" marginBottom="0" marginTop="auto" borderTopLeftRadius="20" borderTopRightRadius="20"  borderBottomRadius="0">
              
                 <Modal.Body>
@@ -80,23 +77,12 @@ const FilterModal = ({ modalVisible, setModalVisible, filters, setFilters ,getIt
                 </Modal.Body>
                    
                 <View bottom="0" mb="6" flexDirection="row" borderTopWidth="1" borderColor="#979797" pt="2" >
-                    <Pressable ml="2" onPress={() => {
-                                    setFilters({     
-                                    noOfResults: Config.noOfResults,
-                                    gender:"",
-                                    countries:[]
-                                    });
-                                    getItemsWithFilters();
-                                    setModalVisible(false);
-                                    }} flex="1" alignItems="center" justifyContent="center">
+                    <Pressable ml="2" onPress={() => resetFilter() } flex="1" alignItems="center" justifyContent="center">
                         <View>
                             <Text>Reset</Text>
                         </View>
                     </Pressable>
-                    <Pressable  mr="2" onPress={() => { 
-                        getItemsWithFilters();
-                        setModalVisible(false);
-                     }} flex="1" alignItems="center" justifyContent="center" bg="#463264" p="2">
+                    <Pressable  mr="2" onPress={() => submitFilter()} flex="1" alignItems="center" justifyContent="center" bg="#463264" p="2">
                         <View>
                             <Text textTransform="uppercase" color="white" fontWeight="bold" letterSpacing="2.25px">Submit</Text>
                         </View>
@@ -104,7 +90,6 @@ const FilterModal = ({ modalVisible, setModalVisible, filters, setFilters ,getIt
                 </View>
                 
             </Modal.Content>
-        </Modal>
     )
 }
 
