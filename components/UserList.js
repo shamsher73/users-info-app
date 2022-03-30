@@ -21,7 +21,7 @@ const UserList = ({userList,setUserList,flatListRef,fetchdata}) => {
         })
 
         return (
-            <Animated.View style={{ transform: [{ scale }], height:ITEM_HEIGHT }}>
+            <Animated.View style={{ transform: [{ scale }], height:ITEM_HEIGHT, opacity: scale }}>
                 <UserInfo user={item} removeUser={removeUser}/>
             </Animated.View>
         )
